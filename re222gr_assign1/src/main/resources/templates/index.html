@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rosas app</title>
+</head>
+<body>
+<h1>TITEL</h1>
+    <div id="container">
+        <p>Which id?</p>
+        
+        <textarea id="idE" cols="3" rows="1"></textarea>
+        <button type="button" id="euclidean">Euclidean</button>
+        <div id="resultE"></div>
+        
+        <textarea id="idWS" cols="3" rows="1"></textarea>
+        <button type="button" id="weightedScore">Weighted score</button>
+        <div id="resultWS"></div>      
+    </div>
+</body>
+
+<link rel="stylesheet" th:href="@{/css/main.css}"/>
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
+</html>
