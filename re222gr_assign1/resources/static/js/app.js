@@ -1,43 +1,42 @@
 'use strict'
+let weightedScore = document.getElementById("weightedScore");
+let euclidean = document.getElementById("euclidean");
 
-let id = document.getElementById("result");
+weightedScore.addEventListener("click", function() {
+	let http = new XMLHttpRequest();
+	let id = document.getElementById("idWS").value;
+	let uri = "http://localhost:8080/ws/" + id;
 
-document.getElementById("submit2").addEventListener("click", function(){
-console.log('hej');
-console.lg
+	http.open("GET", uri);
+	http.send();
+
+	http.onreadystatechange = function() {
+        	let recommendations = JSON.stringify(http.responseText);
+        	let weightedScore = "";
+          
+        	for(let i = 0; i < recommendations.length; i++){
+        		test = recommendations.replaceAll("{","");
+        		weightedScore = weightedScore + test[i];
+            }
+            resultWS.innerHTML = recommendations;
+	}
 });
 
-document.getElementById("submit").addEventListener("click", function(){
+euclidean.addEventListener("click", function(){
 	let http = new XMLHttpRequest();
-	let id = document.getElementById("id").value;
-	let url = "http://localhost:8080/euclidean/" + id;
+	let id = document.getElementById("idE").value;
+	let uri = "http://localhost:8080/euclidean/" + id;
 
-    if(isNaN(id)){
-        result.innerHTML= id + " is not a number";
-        return;
-    }
-
-    http.open("GET", url);
+    http.open("GET", uri);
     http.send();
 
-    http.onreadystatechange=function(){
-        if(this.readyState===4 && this.status===200){
-        	let requestResult = JSON.stringify(http.responseText);
-           
-        	let resultTable = "<table> " +
-            		"<tr>" +
-            		requestResult.length
-            		"</tr>"
-
+    http.onreadystatechange = function(){
+        	let euclideanSimilarity = JSON.stringify(http.responseText);
+        	let matches = "";
             
-            for(let i = 0; i < requestResult.length; i++){
-            	resultTable += requestResult[i];
-            }
-            
-            
-
-            resultTable +="</table>";
-            result.innerHTML = resultTable;
-        }
+            for(let i = 0; i < euclideanSimilarity.length; i++){
+            	matches = matches + euclideanSimilarity[i];
+            }       
+            resultE.innerHTML = matches;
     }
 });

@@ -3,10 +3,13 @@ package root.methods;
 import static com.google.common.collect.MultimapBuilder.hashKeys;
 import static com.google.common.collect.Multimaps.toMultimap;
 import static java.lang.Double.compare;
+import static java.math.BigDecimal.ROUND_HALF_UP;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,8 +27,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WeightedScores {
-	double totRScore = 0;
-	double totMScore = 0;
 	@Autowired
 	private ReadFile readFile;
 	
@@ -34,8 +35,10 @@ public class WeightedScores {
 		.stream()
 		.noneMatch(user -> user.getMovie()
 		.equals(ratingModel.getMovie()));
+		  
+		  
+		return ratings;
 		
-		return ratings; 		
 }
 
 	public List<MovieModel> getRecommendations(UserModel userModel, List<MatchModel> matchModel) {
@@ -47,11 +50,13 @@ public class WeightedScores {
 		Multimap<String, RatingModel> weightedScore = users.stream()
 				.flatMap(otherUser -> otherUser.getRatings().stream())
 				.filter(rating -> getRating(userModel, rating))
-				.limit(3)
+//				.limit(3)
 				.collect(toMultimap(RatingModel::getMovie, identity(), hashKeys()
 				.arrayListValues()::build));
 
 		for(String movie : weightedScore.keySet()){
+			double totRScore = 0;
+			double totMScore = 0;
 			Collection<RatingModel> movieRatings =  weightedScore.get(movie);
 			MovieModel movieModel = new MovieModel(movie);
 
@@ -63,13 +68,20 @@ public class WeightedScores {
 				totRScore = totRScore + ratingScore * matchScore;
 				totMScore = totMScore + match.getMatchScore();
 			}
-			movieModel.setMatchScore(totRScore/totMScore);
+			
+			double ws = new BigDecimal((totRScore)/(totMScore))			
+					.setScale(4,  RoundingMode.DOWN)
+					.doubleValue();
+
+			movieModel.setMatchScore(ws);
+
 			matches.add(movieModel);
 		}
 
 		List<MovieModel> recommendations = matches.stream()
 				.sorted((matchA, matchB) -> compare(matchB.getMatchScore(), matchA.getMatchScore()))
 				.collect(toList());
+		
 		return recommendations; 
 	}
 }

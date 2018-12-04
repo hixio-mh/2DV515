@@ -37,7 +37,7 @@ public class Euclidean {
 		}
 		@SuppressWarnings("deprecation")
 		double similarity = new BigDecimal(1/(1 + sim))
-				.setScale(3, ROUND_HALF_UP)
+				.setScale(4, ROUND_HALF_UP)
 				.doubleValue();
 		return similarity;
 	}
@@ -48,7 +48,7 @@ public class Euclidean {
 		List<MatchModel> matches = allUsers.stream()
 				.filter(otherUser -> otherUser != user)
 				.map(otherUser -> new MatchModel(otherUser, euclidean(user, otherUser)))
-				.limit(3)
+//				.limit(4)
 				.sorted((userA, userB) -> compare(userB.getMatchScore(), userA.getMatchScore()))
 				.collect(toList());
 		
