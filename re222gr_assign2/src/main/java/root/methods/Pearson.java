@@ -48,9 +48,7 @@ public class Pearson {
 		
 		double den = Math.sqrt(resultA * resultB);
 
-		double pearson = new BigDecimal(num / den)
-				.setScale(3, ROUND_HALF_UP)
-				.doubleValue();
+		double pearson = (1.0 - (num / den));
 		
 		return pearson;
 	}

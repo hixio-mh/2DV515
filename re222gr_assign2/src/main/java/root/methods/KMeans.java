@@ -47,11 +47,11 @@ public class KMeans {
 	}
 
 	private void getNearestCentroid(BlogModel b, List<CentroidModel> centroids) {
-		double distance = -Double.MAX_VALUE;
+		double distance = Double.MAX_VALUE;
 		CentroidModel closest = null;
 		for(CentroidModel c : centroids){
 			double cDist = pearson.pearson(c, b);
-			if(cDist > distance){
+			if(cDist < distance){
 				closest = c;
 				distance = cDist;
 			}
