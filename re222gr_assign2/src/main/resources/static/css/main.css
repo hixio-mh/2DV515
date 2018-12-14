@@ -1,0 +1,38 @@
+body {
+	background-color: #d7d9f2;
+	display: ttble-cell;
+	vertical-align: middle;
+}
+
+textarea {
+	resize: none;
+	display: ttble-cell;
+	vertical-align: middle;
+	max-width: 500px;
+	margin: auto;
+	background: white;
+	padding: 10px;
+}
+
+table, th, td {
+	border: 1px solid black;
+	display: ttble-cell;
+	vertical-align: middle;
+	max-width: 500px;
+	margin: auto;
+	background: white;
+	padding: 10px;
+}
+
+#title, #result, #container {
+	display: ttble-cell;
+	vertical-align: middle;
+	max-width: 500px;
+	margin: auto;
+	background: white;
+	padding: 10px;
+}
+
+#result, #container{
+	  color: #4CAF50;
+}
