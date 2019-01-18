@@ -16,7 +16,7 @@ public class PageDBModel implements Comparable<PageDBModel> {
 		this.wordDistance = wordDistance;
 		pageRank = page.getPageRank() * 0.5;
 
-		totSum = this.wordFrequency + this.documentLocation + this.wordDistance + pageRank;
+		totSum = pageRank + this.documentLocation + this.wordFrequency;
 	}
 
 	public String getPage() {
