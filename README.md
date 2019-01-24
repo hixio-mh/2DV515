@@ -26,4 +26,7 @@
 * Used Logistic and MultilayerPerceptron.
 * In the Neural Network classifier is a single hidden layer = 72 nodes.
 
+# 2DV515 PROJECT
+* Scrape and store raw HTML for at least 200 pages.
+* Donw with Jsoup.
 
