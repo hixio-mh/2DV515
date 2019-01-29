@@ -28,5 +28,6 @@
 
 # 2DV515 PROJECT
 * Scrape and store raw HTML for at least 200 pages.
-* Donw with Jsoup.
+* Done with Jsoup in Sts tool Eclipse.
+* Database is Sqlite light. 
 
